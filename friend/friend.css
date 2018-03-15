@@ -1,0 +1,52 @@
+.friend-item{
+    height: 150px;
+    height: 150px;
+    border-radius: 5px;
+    background-color: #3C3C3C;
+    margin-bottom: 20px;
+    transition: all 0.2s;
+    color: #fff;
+    position: relative;
+}
+
+.friend-item:hover{
+    background-color: #000000;
+}
+
+.friend-hover{
+    color: #fff;
+}
+
+.friend-avatar{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    position: absolute;
+    top: 50%;
+    left: 25px;
+    transform: translateY(-50%);
+    -ms-transform: translateY(-50%);     /* IE 9 */
+    -moz-transform:translateY(-50%);    /* Firefox */
+    -webkit-transform:translateY(-50%); /* Safari 和 Chrome */
+    -o-transform:translateY(-50%);
+}
+
+.friend-remark{
+    height: 150px;
+    margin-left: 150px;
+    position:relative;
+}
+
+.friend-remark span{
+    position:absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    -ms-transform: translateY(-50%);     /* IE 9 */
+    -moz-transform:translateY(-50%);     // Firefox 
+    -webkit-transform:translateY(-50%); /* Safari 和 Chrome */
+    -o-transform:translateY(-50%);
+    display: block;
+    word-break: normal;
+}
+
+
