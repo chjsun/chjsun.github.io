@@ -6,20 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.chjsun.top">
-  <title>微信登录有客户端和无客户端杂谈 | CHJSUN</title>
+  <title>Archives: 2018/4 | CHJSUN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="最近在做微信登录相关的操作，本来app是无微信状态下直接提示没有微信不能登录的，但是苹果审核的时候给打回了，说我们微信登录要在无微信状态下也可以使用。懵比。 We were still required to install the WeChat app before we can log-in via WeChat. The user should be able to log-in and a">
-<meta name="keywords" content="wechat">
-<meta property="og:type" content="article">
-<meta property="og:title" content="微信登录有客户端和无客户端杂谈">
-<meta property="og:url" content="http://www.chjsun.top/2016/10/15/wechat/wechat1/index.html">
+  <meta name="description" content="hello world">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CHJSUN">
+<meta property="og:url" content="http://www.chjsun.top/archives/2018/04/index.html">
 <meta property="og:site_name" content="CHJSUN">
-<meta property="og:description" content="最近在做微信登录相关的操作，本来app是无微信状态下直接提示没有微信不能登录的，但是苹果审核的时候给打回了，说我们微信登录要在无微信状态下也可以使用。懵比。 We were still required to install the WeChat app before we can log-in via WeChat. The user should be able to log-in and a">
+<meta property="og:description" content="hello world">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-02-27T06:41:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="微信登录有客户端和无客户端杂谈">
-<meta name="twitter:description" content="最近在做微信登录相关的操作，本来app是无微信状态下直接提示没有微信不能登录的，但是苹果审核的时候给打回了，说我们微信登录要在无微信状态下也可以使用。懵比。 We were still required to install the WeChat app before we can log-in via WeChat. The user should be able to log-in and a">
+<meta name="twitter:title" content="CHJSUN">
+<meta name="twitter:description" content="hello world">
   
     <link rel="alternative" href="/atom.xml" title="CHJSUN" type="application/atom+xml">
   
@@ -178,238 +176,60 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-wechat/wechat1" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      微信登录有客户端和无客户端杂谈
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/04/19/记录一次创建gitlab本地服务并汉化的过程/" class="archive-article-date">
+  	<time datetime="2018-04-19T11:27:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-19</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2018/04/19/记录一次创建gitlab本地服务并汉化的过程/">记录一次创建gitlab本地服务并汉化的过程</a>
     </h1>
   
 
-        
-        <a href="/2016/10/15/wechat/wechat1/" class="archive-article-date">
-  	<time datetime="2016-10-15T08:54:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近在做微信登录相关的操作，本来app是无微信状态下直接提示没有微信不能登录的，但是苹果审核的时候给打回了，说我们微信登录要在无微信状态下也可以使用。懵比。</p>
-<p>We were still required to install the WeChat app before we can log-in via WeChat. The user should be able to log-in and access their account, without requiring additional applications to be installed.</p>
-<p>Next Steps</p>
-<p>If you choose to allow users to log-in via WeChat, please use methods that can authenticate users from within your app, such as a native web-view.</p>
-<a id="more"></a>
-<p>废话不多说，直接开始解决。</p>
-<p>talk is cheap show me the code</p>
-<p>首先，有客户端的情况下正常登录，没什么好说的，</p>
-<p>第一步，下载微信sdk。在这里我们直接使用微信sdk，而不是借助友盟等其他第三方服务。</p>
-<p>第二步，导入相应的开发包到你的项目中，这个会在下载的官方demo中有，一个个导进去就好了</p>
-<p>这两步搞好，其他就看文档吧，写的很详细。</p>
-<p>在这里要注意一个点，使用微信SDK时，如果出现这种错误 <font color="#ff0000">“operator new<a href="unsigned long"></a>“, referenced from:</font></p>
-<p>是微信sdk的问题，找不到对应的编译包，把<font color="#ff0000">“libc++</font>这个导入就ok了</p>
-<p>下面就是重点了，在看文档的时候，微信给了我一个很无语的介绍:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">1、目前移动应用上微信登录只提供原生的登录方式，需要用户安装微信客户端才能配合使用。</div><div class="line">2、对于Android应用，建议总是显示微信登录按钮，当用户手机没有安装微信客户端时，请引导用户下载安装微信客户端。</div><div class="line">3、对于iOS应用，考虑到iOS应用商店审核指南中的相关规定，建议开发者接入微信登录时，先检测用户手机是否已安装微信客户端（使用sdk中isWXAppInstalled函数 ），</div><div class="line">　　对未安装的用户隐藏微信登录按钮，只提供其他登录方式（比如手机号注册登录、游客登录等）</div></pre></td></tr></table></figure></p>
-<p>就是上面这个介绍让我懵比。后来去网上搜了一下，然后再看看WXApi.h这个头文件，发现里面有一个方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">/*! @brief 发送Auth请求到微信，支持用户没安装微信，等待微信返回onResp</div><div class="line"> *</div><div class="line"> * 函数调用后，会切换到微信的界面。第三方应用程序等待微信返回onResp。微信在异步处理完成后一定会调用onResp。支持SendAuthReq类型。</div><div class="line"> * @param req 具体的发送请求，在调用函数后，请自己释放。</div><div class="line"> * @param viewController 当前界面对象。</div><div class="line"> * @param delegate  WXApiDelegate对象，用来接收微信触发的消息。</div><div class="line"> * @return 成功返回YES，失败返回NO。</div><div class="line"> */</div><div class="line">+(BOOL) sendAuthReq:(SendAuthReq*)req viewController:(UIViewController*)viewController delegate:(id&lt;WXApiDelegate&gt;)delegate;</div></pre></td></tr></table></figure></p>
-<p>　这就是福音。</p>
-<p>不说话，直接调用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">SendAuthReq* req =[[SendAuthReq alloc ] init];</div><div class="line">req.scope = @&quot;snsapi_userinfo&quot;;</div><div class="line">req.state = start;</div><div class="line"></div><div class="line">WXApi sendAuthReq:req viewController:self delegate:[WXApiManager sharedManager]];</div></pre></td></tr></table></figure></p>
-<p>在这里，需要有一点注意。<font color="#ff0000">“req.scope = @”snsapi_userinfo”</font>,这个是固定的。</p>
-<p>我的这份代码中，微信登录有客户端的时候写的是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">SendAuthReq* req =[[SendAuthReq alloc ] init];</div><div class="line">req.scope = @&quot;snsapi_userinfo, snsapi_base&quot;;</div><div class="line">req.state = start;</div><div class="line">[WXApi sendReq:req];</div></pre></td></tr></table></figure></p>
-<p>我就偷个懒吧下面修改一下替换到无客户端代码，结果很长时间都是调不出来，就是没反应。后来逐一检查，才发现这个问题。</p>
-<p>注意，无客户端情况下登录，<font color="#ff0000">“req.scope = @”snsapi_userinfo”</font>，这样写就够了</p>
-<p>这是其一。</p>
-<p>其二，还是无客户端情况下。我这边在做的时候还有一个是微信绑定，作用就是把微信跟公司自己的帐号系统绑定在一块，这样做就是以后微信登录我们这边也就是相当于帐号登录，帐号对公司业务有影响，这个就不多说了。</p>
-<p>做的时候我把调用的代码加了一个判断就丢到一个控制器的viewDidLoad中了，但是每次点击绑定的时候，这玩意弹出来显示一片空白，就是没有内容。</p>
-<p>代码一摸一样的，我就想应该是加载的问题，就把调用代码放在<font color="#ff0000">“viewDidAppear</font>中，果然可以。</p>
-<p>所以在这个地方也有一个注意点，<font color="#ff0000">微信登录调用的时候需要控制器加载完成后</font>.</p>
-<p>以上就是我在做的时候碰到的一些小问题，希望对大家有些许的帮助</p>
-<p> 转载请注明出处</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>希望本文对你有所帮助<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/alipay.jpg">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">wechat</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">gitlab 汉化 本地代码管理</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.chjsun.top/2016/10/15/wechat/wechat1/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2017/01/04/animation/animation1/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          CABasicAnimation的代理的坑
-        
-      </div>
-    </a>
   
   
-    <a href="/2016/05/30/calendar/calendar1/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">OC calendar 实践中遇到的问题</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    目录？不存在的…
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
+    </div></section>
   
 
-  
-
-  
-  <style type="text/css">
-
-    #uyan_frame {
-        padding-left:30px;
-        padding-right:30px;
-    }
-</style>
-
-
-<!-- UY BEGIN -->
-  <div id="uyan_frame"> </div>
-  <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=">
-</script>
-  <!-- UY END -->
-
-
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -430,8 +250,8 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
