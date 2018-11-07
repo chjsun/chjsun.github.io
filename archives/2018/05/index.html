@@ -6,26 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.chjsun.top">
-  <title>OC calendar 实践中遇到的问题 | CHJSUN</title>
+  <title>Archives: 2018/5 | CHJSUN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="最近想做一个万年历似的东西，因为需要把农历也添加进去，就想直接调用苹果自带的api，这样还方便一些， 搜索了一下，苹果对于时间的处理，还是提供了很多选择给我们用的 比如：">
-<meta name="keywords" content="calendar">
-<meta property="og:type" content="article">
-<meta property="og:title" content="OC calendar 实践中遇到的问题">
-<meta property="og:url" content="http://www.chjsun.top/2016/05/30/calendar/calendar1/index.html">
+  <meta name="description" content="hello world">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CHJSUN">
+<meta property="og:url" content="http://www.chjsun.top/archives/2018/05/index.html">
 <meta property="og:site_name" content="CHJSUN">
-<meta property="og:description" content="最近想做一个万年历似的东西，因为需要把农历也添加进去，就想直接调用苹果自带的api，这样还方便一些， 搜索了一下，苹果对于时间的处理，还是提供了很多选择给我们用的 比如：">
+<meta property="og:description" content="hello world">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://www.chjsun.top/img/calendar/calendar1-1.png">
-<meta property="og:image" content="http://www.chjsun.top/img/calendar/calendar1-2.png">
-<meta property="og:image" content="http://www.chjsun.top/img/calendar/calendar1-3.png">
-<meta property="og:image" content="http://www.chjsun.top/img/calendar/calendar1-4.png">
-<meta property="og:image" content="http://www.chjsun.top/img/calendar/calendar1-5.png">
-<meta property="og:updated_time" content="2018-02-27T06:41:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OC calendar 实践中遇到的问题">
-<meta name="twitter:description" content="最近想做一个万年历似的东西，因为需要把农历也添加进去，就想直接调用苹果自带的api，这样还方便一些， 搜索了一下，苹果对于时间的处理，还是提供了很多选择给我们用的 比如：">
-<meta name="twitter:image" content="http://www.chjsun.top/img/calendar/calendar1-1.png">
+<meta name="twitter:title" content="CHJSUN">
+<meta name="twitter:description" content="hello world">
   
     <link rel="alternative" href="/atom.xml" title="CHJSUN" type="application/atom+xml">
   
@@ -184,236 +176,60 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-calendar/calendar1" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      OC calendar 实践中遇到的问题
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/05/07/js与原生交互/" class="archive-article-date">
+  	<time datetime="2018-05-07T12:05:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-07</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2018/05/07/js与原生交互/">js与原生交互</a>
     </h1>
   
 
-        
-        <a href="/2016/05/30/calendar/calendar1/" class="archive-article-date">
-  	<time datetime="2016-05-30T02:15:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-05-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近想做一个万年历似的东西，因为需要把农历也添加进去，就想直接调用苹果自带的api，这样还方便一些，</p>
-<p>搜索了一下，苹果对于时间的处理，还是提供了很多选择给我们用的</p>
-<p>比如：<br><a id="more"></a><br>　　NSDate – 表示一个绝对的时间点<br>　　NSTimeZone – 时区信息<br>　　NSLocale – 本地化信息<br>　　NSDateComponents – 一个封装了具体年月日、时秒分、周、季度等的类<br>　　NSCalendar – 日历类，它提供了大部分的日期计算接口，并且允许您在NSDate和NSDateComponents之间转换<br>　　NSDateFormatter – 用来在日期和字符串之间转换 。</p>
-<p>今天，我们就说说我在开发时遇到的问题：</p>
-<p>主要问题有两个</p>
-<p>　　1, 就是NSDate</p>
-<p>　　2, 就是NSCalendar</p>
-<hr>
-<p>NSDate</p>
-<p>// 日期和字符串之间的转换<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (NSDate *) strToDate</span><br><span class="line">&#123;</span><br><span class="line">    NSString *dateStr = @&quot;1986-9-14&quot;;</span><br><span class="line"></span><br><span class="line">    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];</span><br><span class="line">    // 这个格式可以随便定义,比如:@&quot;yyyy,MM,dd,HH,mm,ss&quot;</span><br><span class="line">   [formatter setDateFormat:@&quot;yyyy-MM-dd&quot;]; // 年-月-日</span><br><span class="line">   // 将字符串按照格式转换成NSDate</span><br><span class="line">    NSDate *date = [formatter dateFromString:dateStr];</span><br><span class="line">    return date;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这段代码本身是可以用的</p>
-<p><img src="/img/calendar/calendar1-1.png" alt=""></p>
-<p>在这里，可以看到  已经成功的将9-29日转换成 utc的9-28日</p>
-<p>但是(怎么问题总是在”但是”里 😂  😂</p>
-<p>这段代码，在dateStr 是 @”1986-5-4”的时候，date为空，在@”1986-5-5” 和@”1986-9-14”之间<br>　　date是 “xxxx-xx-xx 15:00:00 UTC”。下图为证<br><img src="/img/calendar/calendar1-2.png" alt=""><br><img src="/img/calendar/calendar1-3.png" alt=""></p>
-<p>我们都是知道的，中国在东八区，应该是 16:00:00 才对，而且只有这一时间段出问题，这是不正常。</p>
-<p>原因： 这是因为中国的”夏令时问题”</p>
-<p>1986年4月，我国采取夏令时，具体作法是：每年从四月中旬第一个星期日的凌晨2时整(北京时间)，将时钟拨快一小时，即将表针由2时拨至3时，夏令时开始；到九月中旬第一个星期日的凌晨2时整(北京夏令时)，再将时钟拨回一小时，即将表针由2时拨至1时，夏令时结束。从1986年到1991年的六个年度，除1986年因是实行夏时制的第一年，从5月4日开始到9月14日结束外，其它年份均按规定的时段施行。在夏令时开始和结束前几天，新闻媒体均刊登有关部门的通告。1992年起，夏令时暂停实行</p>
-<p>也就是说：</p>
-<p>　　1986年4月13日至9月14日，<br>　　1987年4月12日至9月13日，<br>　　1988年4月10日至9月11日，<br>　　1989年4月16日至9月17日，<br>　　1990年4月15日至9月16日，<br>　　1991年4月14日至9月15日。</p>
-<p>这些时间是有问题的，15:00:00,是因为夏令时的原因</p>
-<p>哪还有一个问题，就是5月4号为空，这个就还没想到</p>
-<p>要解决这个问题很简单，因为默认使用的是Asia/Shanghai  所以只要添加两句代码就搞定了</p>
-<p>// 日期和字符串之间的转换<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">- (NSDate *) strToDate</span><br><span class="line">&#123;</span><br><span class="line">    NSString *dateStr = @&quot;2057-9-29&quot;;</span><br><span class="line">    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];</span><br><span class="line"></span><br><span class="line">// 新添加的两句代码 ---------- start ----------</span><br><span class="line">    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@&quot;GMT&quot;]];</span><br><span class="line">    [formatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@&quot;en_US&quot;]];</span><br><span class="line">//               ----------  end  ----------</span><br><span class="line">    [formatter setDateFormat:@&quot;yyyy-MM-dd&quot;]; // 年-月-日 时:分:秒</span><br><span class="line">    // 这个格式可以随便定义,比如：@&quot;yyyy,MM,dd,HH,mm,ss&quot;</span><br><span class="line">    NSDate *date = [formatter dateFromString:dateStr];</span><br><span class="line">    NSLog(@&quot;date = %@&quot;, date);</span><br><span class="line"></span><br><span class="line">    return date;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>解决；</p>
-<p>问题2:在使用NSCalendar的时候，时间是 2057-9-28日那天，农历day返回的是0，而其他时间返回的是1～30之间，为什么会出现这个问题呢，请看下面两张图</p>
-<p><img src="/img/calendar/calendar1-4.png" alt=""><br><img src="/img/calendar/calendar1-5.png" alt=""></p>
-<p>这两张图的28号 农历都是一个 o  那么，调用api 部分代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">/** 农历月 */</span><br><span class="line">@property (nonatomic, strong) NSArray *chineseMonths;</span><br><span class="line"></span><br><span class="line">//农历月数据，加载一次足矣</span><br><span class="line">-(NSArray *)chineseMonths&#123;</span><br><span class="line">    if (!_chineseMonths) &#123;</span><br><span class="line">        _chineseMonths = [NSArray arrayWithObjects:</span><br><span class="line">                                 @&quot;正月&quot;, @&quot;二月&quot;, @&quot;三月&quot;, @&quot;四月&quot;, @&quot;五月&quot;, @&quot;六月&quot;, @&quot;七月&quot;, @&quot;八月&quot;,</span><br><span class="line">                                  @&quot;九月&quot;, @&quot;十月&quot;, @&quot;冬月&quot;, @&quot;腊月&quot;, nil];</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    return _chineseMonths;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// get chinese day</span><br><span class="line">-(NSString *)getChineseWeekDaysWithDate:(NSDate *)date&#123;</span><br><span class="line"></span><br><span class="line">     NSCalendar *chineseCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierChinese];</span><br><span class="line">     NSDateComponents *localeComp = [chineseCalendar components: NSCalendarUnitDay fromDate:date];</span><br><span class="line"></span><br><span class="line">    return [self.chineseDays objectAtIndex:localeComp.day-1];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>角标变成－1 就报错了，解决办法就是在返回的时候做一次判断，根据上图显示，姑且就认为 o 就是30号<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return [self.chineseDays objectAtIndex:(localeComp.day==0? 29: localeComp.day-1)];</span><br></pre></td></tr></table></figure></p>
-<p> 转载请注明出处</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>希望本文对你有所帮助<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/alipay.jpg">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">calendar</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js, 原生, 交互, js与原生交互, wkWebView交互</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.chjsun.top/2016/05/30/calendar/calendar1/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2016/10/15/wechat/wechat1/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          微信登录有客户端和无客户端杂谈
-        
-      </div>
-    </a>
   
   
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    目录？不存在的…
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
+    </div></section>
   
 
-  
-
-  
-  <style type="text/css">
-
-    #uyan_frame {
-        padding-left:30px;
-        padding-right:30px;
-    }
-</style>
-
-
-<!-- UY BEGIN -->
-  <div id="uyan_frame"> </div>
-  <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=">
-</script>
-  <!-- UY END -->
-
-
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -434,8 +250,8 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,

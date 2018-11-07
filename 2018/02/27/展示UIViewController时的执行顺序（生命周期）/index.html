@@ -205,8 +205,8 @@ var _hmt = _hmt || [];
         <p>在我们一开始学习UIViewController的时候，必然会接触到生命周期这个概念。<br>控制器的生命周期资料在网上也是大同小异。下面简短的介绍一下就跳过了，<br>毕竟是已经普及的大众化知识。不是本文的重点<br>本文重点说在控制器被弹出时的执行顺序<br>想直接看结果的请看总结<br><a id="more"></a></p>
 <h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><p>当一个视图控制器被创建，并在屏幕上显示的时候。 代码的执行顺序<br>1、alloc                     创建对象，分配空间<br>2、init (initWithNibName)    初始化对象，初始化数据<br>3、loadView                  从nib载入视图 ，通常这一步不需要去干涉。在系统调用view且检测到控制器的view为nil时调用，没有使用nib则自动创建一个空白view。<br>4、viewDidLoad               载入完成，可以进行自定义数据以及动态创建其他控件<br>5、viewWillAppear            视图将出现在屏幕之前，马上这个视图就会被展现在屏幕上了<br>6、viewDidAppear             视图已在屏幕上渲染完成  </p>
 <p>当一个视图被移除屏幕并且销毁的时候的执行顺序，这个顺序差不多和上面的相反<br>1、viewWillDisappear         视图将被从屏幕上移除之前执行<br>2、viewDidDisappear          视图已经被从屏幕上移除，用户看不到这个视图了<br>3、dealloc                   视图被销毁，此处需要对你在init和viewDidLoad中创建的对象进行释放  </p>
-<h2 id="显示控制器时的调用顺序-（重点）"><a href="#显示控制器时的调用顺序-（重点）" class="headerlink" title="显示控制器时的调用顺序-（重点）"></a>显示控制器时的调用顺序-（重点）</h2><h4 id="正常情况下"><a href="#正常情况下" class="headerlink" title="正常情况下"></a>正常情况下</h4><p>在控制器创建时，调用的是 alloc、 init方法<br>在这个时候，可以对控制器进行设置。传值、设置属性、代理等等操作，然后通过push或者presentViewController弹出控制器。<br>这个时候才会去调用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (void)loadView;</div><div class="line">- (void)viewDidLoad；</div><div class="line">- (void)viewWillAppear:(BOOL)animated；</div><div class="line">- (void)viewDidAppear:(BOOL)animated；</div></pre></td></tr></table></figure></p>
-<p>这几个方法。<br>所以在弹出新的控制器的时候我们都会在push之前传递值，设置属性、代理等<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">xxViewController xxVC = [[XXViewController alloc] init];</div><div class="line">xxVC.delegate = self;</div><div class="line">xxVC.name = @&quot;张三&quot;;</div><div class="line">xxVC.sex = 1;</div><div class="line">[self presentViewController:xxVC animated:YES completion:nil]</div></pre></td></tr></table></figure></p>
+<h2 id="显示控制器时的调用顺序-（重点）"><a href="#显示控制器时的调用顺序-（重点）" class="headerlink" title="显示控制器时的调用顺序-（重点）"></a>显示控制器时的调用顺序-（重点）</h2><h4 id="正常情况下"><a href="#正常情况下" class="headerlink" title="正常情况下"></a>正常情况下</h4><p>在控制器创建时，调用的是 alloc、 init方法<br>在这个时候，可以对控制器进行设置。传值、设置属性、代理等等操作，然后通过push或者presentViewController弹出控制器。<br>这个时候才会去调用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (void)loadView;</span><br><span class="line">- (void)viewDidLoad；</span><br><span class="line">- (void)viewWillAppear:(BOOL)animated；</span><br><span class="line">- (void)viewDidAppear:(BOOL)animated；</span><br></pre></td></tr></table></figure></p>
+<p>这几个方法。<br>所以在弹出新的控制器的时候我们都会在push之前传递值，设置属性、代理等<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">xxViewController xxVC = [[XXViewController alloc] init];</span><br><span class="line">xxVC.delegate = self;</span><br><span class="line">xxVC.name = @&quot;张三&quot;;</span><br><span class="line">xxVC.sex = 1;</span><br><span class="line">[self presentViewController:xxVC animated:YES completion:nil]</span><br></pre></td></tr></table></figure></p>
 <p>加上viewDidLoad只会调用一次的特性<br>所以在代码上，我们喜欢在viewDidLoad里开始调用逻辑。这个时候会用到控件。（不管是懒加载的还是直接创建的）<br>所以可以说是在viewDidLoad里创建了控件</p>
 <h4 id="会被忽略的情况。"><a href="#会被忽略的情况。" class="headerlink" title="会被忽略的情况。"></a>会被忽略的情况。</h4><p>1， 会忽略loadView的调用条件<br>2， 调用loadView之后会调用viewDidLoad<br>有一次我在创建模态控制器时。重写了init方法，在init时设置view的属性，结果就触发了一个设置的属性死活找不到的情况。<br>截图为证<br><img src="/img/screenshot/PastedGraphic-3.jpg" alt=""></p>
 <h3 id="在init时处理了view，导致立即执行了loadView，viewDidLoad"><a href="#在init时处理了view，导致立即执行了loadView，viewDidLoad" class="headerlink" title="在init时处理了view，导致立即执行了loadView，viewDidLoad"></a>在init时处理了view，导致立即执行了loadView，viewDidLoad</h3><p><img src="/img/screenshot/PastedGraphic-1.png" alt=""></p>
@@ -483,6 +483,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">js, 原生, 交互, js与原生交互, wkWebView交互</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据模型, set/get</a>
               </li>
              
@@ -499,6 +503,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">xcode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">animation</a>
               </li>
              
@@ -508,10 +516,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">wechat</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">xcode</a>
               </li>
             
             <div class="clearfix"></div>

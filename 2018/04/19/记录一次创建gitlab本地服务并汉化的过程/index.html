@@ -201,26 +201,26 @@ var _hmt = _hmt || [];
         <p>受够了svn，找了一台笔记本装个ubuntu server，准备在上边装一个gitlab的服务，一下为安装的过程和踩的坑。</p>
 <p>首先是安装linux 我装的是ubuntu server 16.04 。换的是阿里的源。速度还是有的。</p>
 <p>然后通过命令安装gitlab</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">curl -s https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash</div><div class="line"></div><div class="line">sudo apt-get install gitlab-ce=8.8.0</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -s https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash</span><br><span class="line"></span><br><span class="line">sudo apt-get install gitlab-ce=8.8.0</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<p>使用8.8.0是因为我想汉化这个服务，查看 <a href="https://gitlab.com/larryli/gitlab" target="_blank" rel="external">https://gitlab.com/larryli/gitlab</a> 最高就到8.8。 所以直接安装这个，（我安装过很多个版本，安装卸载很恶心）</p>
+<p>使用8.8.0是因为我想汉化这个服务，查看 <a href="https://gitlab.com/larryli/gitlab" target="_blank" rel="noopener">https://gitlab.com/larryli/gitlab</a> 最高就到8.8。 所以直接安装这个，（我安装过很多个版本，安装卸载很恶心）</p>
 <p>想要卸载的小伙伴可以参考以下命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sudo gitlab-ctl stop</div><div class="line">sudo gitlab-ctl uninstall</div><div class="line">sudo gitlab-ctl cleanse</div><div class="line">sudo rm -rf /opt/gitlab</div><div class="line">sudo apt-get --purge remove gitlab-ce</div></pre></td></tr></table></figure>
-<p>最后一个命令  sudo apt-get –purge remove gitlab-ce 是apt-get安装的软件卸载的命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">删除已安装包（不保留配置文件)。 如软件包a，依赖软件包b，则执行该命令会删除a，而且不保留配置文件</div></pre></td></tr></table></figure></p>
-<p>注意：<br>卸载gitlab重新安装时，可能会出现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ruby_block[supervise_redis_sleep] action run</div></pre></td></tr></table></figure></p>
-<p>然后一直卡住不动。无法进行下去<br>解决方案：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1、按住CTRL+C强制结束；</div><div class="line"></div><div class="line">2、运行：sudo systemctl restart gitlab-runsvdir；</div><div class="line"></div><div class="line">3、再次执行：sudo gitlab-ctl reconfigure</div></pre></td></tr></table></figure></p>
-<p>注：解决方案来源：<a href="https://gitlab.com/gitlab-org/omnibus-gitlab/issues/160" target="_blank" rel="external">https://gitlab.com/gitlab-org/omnibus-gitlab/issues/160</a>  感谢大神</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo gitlab-ctl stop</span><br><span class="line">sudo gitlab-ctl uninstall</span><br><span class="line">sudo gitlab-ctl cleanse</span><br><span class="line">sudo rm -rf /opt/gitlab</span><br><span class="line">sudo apt-get --purge remove gitlab-ce</span><br></pre></td></tr></table></figure>
+<p>最后一个命令  sudo apt-get –purge remove gitlab-ce 是apt-get安装的软件卸载的命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">删除已安装包（不保留配置文件)。 如软件包a，依赖软件包b，则执行该命令会删除a，而且不保留配置文件</span><br></pre></td></tr></table></figure></p>
+<p>注意：<br>卸载gitlab重新安装时，可能会出现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby_block[supervise_redis_sleep] action run</span><br></pre></td></tr></table></figure></p>
+<p>然后一直卡住不动。无法进行下去<br>解决方案：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1、按住CTRL+C强制结束；</span><br><span class="line"></span><br><span class="line">2、运行：sudo systemctl restart gitlab-runsvdir；</span><br><span class="line"></span><br><span class="line">3、再次执行：sudo gitlab-ctl reconfigure</span><br></pre></td></tr></table></figure></p>
+<p>注：解决方案来源：<a href="https://gitlab.com/gitlab-org/omnibus-gitlab/issues/160" target="_blank" rel="noopener">https://gitlab.com/gitlab-org/omnibus-gitlab/issues/160</a>  感谢大神</p>
 <p>继续执行后，等待结束，就可以在网页上进行访问了，下面再进行汉化</p>
-<h1 id="汉化"><a href="#汉化" class="headerlink" title="汉化"></a>汉化</h1><p>首先需要获取版本，我之前踩过坑的，所以这里安装的时候直接制定版本号为 8.8.0<br>也可以通过命令获取版本号<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat /opt/gitlab/embedded/service/gitlab-rails/VERSION</div></pre></td></tr></table></figure></p>
-<p>接着把gitlab的汉化分支clone下来，官方clone地址 git clone <a href="https://gitlab.com/larryli/gitlab.git" target="_blank" rel="external">https://gitlab.com/larryli/gitlab.git</a></p>
-<p>速度还是可以的，有时候会变慢的话，我也把这个项目放到了我自己的github上<br>地址： <a href="https://github.com/chjsun/gitlab_zh_CN" target="_blank" rel="external">https://github.com/chjsun/gitlab_zh_CN</a> 尚未验证是否可用</p>
-<p>接下来生成差异文件。因为服务中的语言并不是通过配置文件设置的，所以需要修改很多个原文件。这也是需要把服务先停掉的原因<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">首先进入到clone下来的项目中，</div><div class="line">然后执行命令</div><div class="line">git diff origin/8-8-stable origin/8-8-zh &gt; ~/8-8.diff</div></pre></td></tr></table></figure></p>
+<h1 id="汉化"><a href="#汉化" class="headerlink" title="汉化"></a>汉化</h1><p>首先需要获取版本，我之前踩过坑的，所以这里安装的时候直接制定版本号为 8.8.0<br>也可以通过命令获取版本号<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /opt/gitlab/embedded/service/gitlab-rails/VERSION</span><br></pre></td></tr></table></figure></p>
+<p>接着把gitlab的汉化分支clone下来，官方clone地址 git clone <a href="https://gitlab.com/larryli/gitlab.git" target="_blank" rel="noopener">https://gitlab.com/larryli/gitlab.git</a></p>
+<p>速度还是可以的，有时候会变慢的话，我也把这个项目放到了我自己的github上<br>地址： <a href="https://github.com/chjsun/gitlab_zh_CN" target="_blank" rel="noopener">https://github.com/chjsun/gitlab_zh_CN</a> 尚未验证是否可用</p>
+<p>接下来生成差异文件。因为服务中的语言并不是通过配置文件设置的，所以需要修改很多个原文件。这也是需要把服务先停掉的原因<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">首先进入到clone下来的项目中，</span><br><span class="line">然后执行命令</span><br><span class="line">git diff origin/8-8-stable origin/8-8-zh &gt; ~/8-8.diff</span><br></pre></td></tr></table></figure></p>
 <p>命令会生成一个名为 v8-8.diff 的文件在用户目录下.</p>
 <p>然后通过</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /opt/gitlab/embedded/service/gitlab-rails</div><div class="line">git apply ~/8-8.diff</div></pre></td></tr></table></figure>
-<p>将差异内容（中英文）替换。<br>注意，这里可能会报一系列的错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">error: patch failed: app/controllers/projects/blob_controller.rb:23</div><div class="line">error: app/controllers/projects/blob_controller.rb: patch does not apply</div><div class="line">error: patch failed: app/controllers/projects/commit_controller.rb:57</div><div class="line">error: app/controllers/projects/commit_controller.rb: patch does not apply</div><div class="line">error: patch failed: app/helpers/milestones_helper.rb:100</div><div class="line">error: app/helpers/milestones_helper.rb: patch does not apply</div><div class="line">error: patch failed: app/services/commits/change_service.rb:38</div><div class="line">error: app/services/commits/change_service.rb: patch does not apply</div><div class="line">error: patch failed: app/services/files/base_service.rb:55</div><div class="line">error: app/services/files/base_service.rb: patch does not apply</div><div class="line">error: patch failed: app/views/projects/commit/_change.html.haml:1</div><div class="line">error: app/views/projects/commit/_change.html.haml: patch does not apply</div><div class="line">error: patch failed: app/views/projects/milestones/show.html.haml:7</div><div class="line">error: app/views/projects/milestones/show.html.haml: patch does not apply</div><div class="line">error: patch failed: app/views/projects/pages/_use.html.haml:1</div><div class="line">error: app/views/projects/pages/_use.html.haml: patch does not apply</div></pre></td></tr></table></figure></p>
-<p>可以尝试命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo patch -d /opt/gitlab/embedded/service/gitlab-rails -p1 &lt; ~/8-8.diff</div></pre></td></tr></table></figure></p>
-<p>注：解决方案来源：<a href="https://gitlab.com/xhang/gitlab/issues/25" target="_blank" rel="external">https://gitlab.com/xhang/gitlab/issues/25</a> 感谢大神。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/gitlab/embedded/service/gitlab-rails</span><br><span class="line">git apply ~/8-8.diff</span><br></pre></td></tr></table></figure>
+<p>将差异内容（中英文）替换。<br>注意，这里可能会报一系列的错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">error: patch failed: app/controllers/projects/blob_controller.rb:23</span><br><span class="line">error: app/controllers/projects/blob_controller.rb: patch does not apply</span><br><span class="line">error: patch failed: app/controllers/projects/commit_controller.rb:57</span><br><span class="line">error: app/controllers/projects/commit_controller.rb: patch does not apply</span><br><span class="line">error: patch failed: app/helpers/milestones_helper.rb:100</span><br><span class="line">error: app/helpers/milestones_helper.rb: patch does not apply</span><br><span class="line">error: patch failed: app/services/commits/change_service.rb:38</span><br><span class="line">error: app/services/commits/change_service.rb: patch does not apply</span><br><span class="line">error: patch failed: app/services/files/base_service.rb:55</span><br><span class="line">error: app/services/files/base_service.rb: patch does not apply</span><br><span class="line">error: patch failed: app/views/projects/commit/_change.html.haml:1</span><br><span class="line">error: app/views/projects/commit/_change.html.haml: patch does not apply</span><br><span class="line">error: patch failed: app/views/projects/milestones/show.html.haml:7</span><br><span class="line">error: app/views/projects/milestones/show.html.haml: patch does not apply</span><br><span class="line">error: patch failed: app/views/projects/pages/_use.html.haml:1</span><br><span class="line">error: app/views/projects/pages/_use.html.haml: patch does not apply</span><br></pre></td></tr></table></figure></p>
+<p>可以尝试命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo patch -d /opt/gitlab/embedded/service/gitlab-rails -p1 &lt; ~/8-8.diff</span><br></pre></td></tr></table></figure></p>
+<p>注：解决方案来源：<a href="https://gitlab.com/xhang/gitlab/issues/25" target="_blank" rel="noopener">https://gitlab.com/xhang/gitlab/issues/25</a> 感谢大神。</p>
 <p>到此，启动服务</p>
 <p>sudo gitlab-ctl start</p>
 <p>浏览器查看可以了。</p>
@@ -334,11 +334,11 @@ var _hmt = _hmt || [];
   
 <nav id="article-nav">
   
-    <a href="/2018/09/12/iOS演示视频/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/05/07/js与原生交互/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          iOS演示视频
+          js与原生交互
         
       </div>
     </a>
@@ -495,6 +495,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">js, 原生, 交互, js与原生交互, wkWebView交互</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据模型, set/get</a>
               </li>
              
@@ -511,6 +515,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">xcode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">animation</a>
               </li>
              
@@ -520,10 +528,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">wechat</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">xcode</a>
               </li>
             
             <div class="clearfix"></div>

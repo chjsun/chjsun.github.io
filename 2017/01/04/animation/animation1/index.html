@@ -259,9 +259,9 @@ var _hmt = _hmt || [];
 <hr>
 <p>第二种：</p>
 <p>　　第二种方法是创建一个新的类，假设是JRAnimDelegate;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">.h</div><div class="line"></div><div class="line">#import &lt;Foundation/Foundation.h&gt;</div><div class="line">@class JRAnimDelegatel;</div><div class="line">@protocol JRAnimDelegateDelegate &lt;NSObject&gt;</div><div class="line"></div><div class="line">@optional</div><div class="line">- (void)animationDidStop;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@interface JRAnimDelegate : NSObject&lt;CAAnimationDelegate&gt;</div><div class="line"></div><div class="line">@property(nonatomic, assign) id&lt;JRAnimDelegateDelegate&gt; delegate;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">.m</div><div class="line"></div><div class="line">#import &quot;JRAnimDelegate.h&quot;</div><div class="line"></div><div class="line">@implementation JRAnimDelegate</div><div class="line"></div><div class="line">- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag&#123;</div><div class="line">    if ([self.delegate respondsToSelector:@selector(animationDidStop)]) &#123;</div><div class="line">        [self.delegate animationDidStop];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">.h</span><br><span class="line"></span><br><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line">@class JRAnimDelegatel;</span><br><span class="line">@protocol JRAnimDelegateDelegate &lt;NSObject&gt;</span><br><span class="line"></span><br><span class="line">@optional</span><br><span class="line">- (void)animationDidStop;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@interface JRAnimDelegate : NSObject&lt;CAAnimationDelegate&gt;</span><br><span class="line"></span><br><span class="line">@property(nonatomic, assign) id&lt;JRAnimDelegateDelegate&gt; delegate;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">.m</span><br><span class="line"></span><br><span class="line">#import &quot;JRAnimDelegate.h&quot;</span><br><span class="line"></span><br><span class="line">@implementation JRAnimDelegate</span><br><span class="line"></span><br><span class="line">- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag&#123;</span><br><span class="line">    if ([self.delegate respondsToSelector:@selector(animationDidStop)]) &#123;</span><br><span class="line">        [self.delegate animationDidStop];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
 <p>然后使用时</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">JRAnimDelegate *animDelegate = [[JRAnimDelegate alloc] init];</div><div class="line"></div><div class="line">animDelegate.delegate = self;</div><div class="line">animation.delegate = animDelegate;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">JRAnimDelegate *animDelegate = [[JRAnimDelegate alloc] init];</span><br><span class="line"></span><br><span class="line">animDelegate.delegate = self;</span><br><span class="line">animation.delegate = animDelegate;</span><br></pre></td></tr></table></figure>
 <p>转化之后，会打破循环引用。在新的类中将代理转回来，这样也可以使用，这样虽然会使逻辑变的复杂，但是能保证一定是动画执行完成之后调用</p>
 <p>我用的就是第二种</p>
 <p>两种方法我都测试过，都可以用，具体用哪种 ，每个人都有自己的理解和使用的场景。诸君自便</p>
@@ -535,6 +535,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">js, 原生, 交互, js与原生交互, wkWebView交互</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据模型, set/get</a>
               </li>
              
@@ -551,6 +555,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">xcode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">animation</a>
               </li>
              
@@ -560,10 +568,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">wechat</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">xcode</a>
               </li>
             
             <div class="clearfix"></div>

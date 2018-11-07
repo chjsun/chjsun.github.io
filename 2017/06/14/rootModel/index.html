@@ -221,7 +221,7 @@ run
 </code></pre><h1 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h1><pre><code>0，创建一个model，继承于CJRootModel
 1，在.h文件中声明属性，例如 @property(nonatomic, copy)NSString *name;
 </code></pre><h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p>子类创建模型可以通过+ shareModel创建出单例模型<br>亦可以通过init创建出<span style="color: #f00">非</span>单例模型<br>提供json转模型、字典转模型、模型转字典、模型转json的功能<br>头文件里有详细的方法说明</p>
-<h1 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h1><h4 id="重写get-set方法-防止数据为空（赋默认值，或者取出持久化的值）"><a href="#重写get-set方法-防止数据为空（赋默认值，或者取出持久化的值）" class="headerlink" title="重写get/set方法, 防止数据为空（赋默认值，或者取出持久化的值）"></a>重写get/set方法, 防止数据为空（赋默认值，或者取出持久化的值）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">.m //类扩展</div><div class="line">@interface childModel()&#123;</div><div class="line">    NSString *_name; // 可以声明get/set方法</div><div class="line">&#125;</div><div class="line">@end</div><div class="line"></div><div class="line">@implementation childModel</div><div class="line"></div><div class="line">// 重写 name 的 get 方法, 可以直接使用，不用担心值为空或者想要取出持久化的值</div><div class="line">- (NSString *)name&#123;</div><div class="line">    // name有则使用，没有则创建</div><div class="line">    if (!_name.length) &#123;</div><div class="line">        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];</div><div class="line">        _name = [defaults objectForKey:@&quot;xxxName&quot;];</div><div class="line">        if (!_name.length) &#123;</div><div class="line">            _name = @&quot;&quot;;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return _name;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 想要取，先要存</div><div class="line">- (void)setName:(NSString *)name&#123;</div><div class="line">    _name = name;</div><div class="line">    // 在defaults里存一份</div><div class="line">    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];</div><div class="line">    [defaults setObject:name forKey:@&quot;xxxName&quot;];</div><div class="line">&#125;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<h1 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h1><h4 id="重写get-set方法-防止数据为空（赋默认值，或者取出持久化的值）"><a href="#重写get-set方法-防止数据为空（赋默认值，或者取出持久化的值）" class="headerlink" title="重写get/set方法, 防止数据为空（赋默认值，或者取出持久化的值）"></a>重写get/set方法, 防止数据为空（赋默认值，或者取出持久化的值）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">.m //类扩展</span><br><span class="line">@interface childModel()&#123;</span><br><span class="line">    NSString *_name; // 可以声明get/set方法</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation childModel</span><br><span class="line"></span><br><span class="line">// 重写 name 的 get 方法, 可以直接使用，不用担心值为空或者想要取出持久化的值</span><br><span class="line">- (NSString *)name&#123;</span><br><span class="line">    // name有则使用，没有则创建</span><br><span class="line">    if (!_name.length) &#123;</span><br><span class="line">        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];</span><br><span class="line">        _name = [defaults objectForKey:@&quot;xxxName&quot;];</span><br><span class="line">        if (!_name.length) &#123;</span><br><span class="line">            _name = @&quot;&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return _name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 想要取，先要存</span><br><span class="line">- (void)setName:(NSString *)name&#123;</span><br><span class="line">    _name = name;</span><br><span class="line">    // 在defaults里存一份</span><br><span class="line">    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];</span><br><span class="line">    [defaults setObject:name forKey:@&quot;xxxName&quot;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
 <h4 id="欢迎大家对这个模型提出意见和建议，请留言或者在github上直接Issues"><a href="#欢迎大家对这个模型提出意见和建议，请留言或者在github上直接Issues" class="headerlink" title="欢迎大家对这个模型提出意见和建议，请留言或者在github上直接Issues"></a>欢迎大家对这个模型提出意见和建议，请留言或者在github上直接Issues</h4><h2 id="the-end"><a href="#the-end" class="headerlink" title="the end"></a>the end</h2>
       
 
@@ -492,6 +492,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">js, 原生, 交互, js与原生交互, wkWebView交互</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据模型, set/get</a>
               </li>
              
@@ -508,6 +512,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">xcode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">animation</a>
               </li>
              
@@ -517,10 +525,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">wechat</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">xcode</a>
               </li>
             
             <div class="clearfix"></div>

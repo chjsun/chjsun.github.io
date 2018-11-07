@@ -211,12 +211,12 @@ var _hmt = _hmt || [];
 <p>这两步搞好，其他就看文档吧，写的很详细。</p>
 <p>在这里要注意一个点，使用微信SDK时，如果出现这种错误 <font color="#ff0000">“operator new<a href="unsigned long"></a>“, referenced from:</font></p>
 <p>是微信sdk的问题，找不到对应的编译包，把<font color="#ff0000">“libc++</font>这个导入就ok了</p>
-<p>下面就是重点了，在看文档的时候，微信给了我一个很无语的介绍:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">1、目前移动应用上微信登录只提供原生的登录方式，需要用户安装微信客户端才能配合使用。</div><div class="line">2、对于Android应用，建议总是显示微信登录按钮，当用户手机没有安装微信客户端时，请引导用户下载安装微信客户端。</div><div class="line">3、对于iOS应用，考虑到iOS应用商店审核指南中的相关规定，建议开发者接入微信登录时，先检测用户手机是否已安装微信客户端（使用sdk中isWXAppInstalled函数 ），</div><div class="line">　　对未安装的用户隐藏微信登录按钮，只提供其他登录方式（比如手机号注册登录、游客登录等）</div></pre></td></tr></table></figure></p>
-<p>就是上面这个介绍让我懵比。后来去网上搜了一下，然后再看看WXApi.h这个头文件，发现里面有一个方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">/*! @brief 发送Auth请求到微信，支持用户没安装微信，等待微信返回onResp</div><div class="line"> *</div><div class="line"> * 函数调用后，会切换到微信的界面。第三方应用程序等待微信返回onResp。微信在异步处理完成后一定会调用onResp。支持SendAuthReq类型。</div><div class="line"> * @param req 具体的发送请求，在调用函数后，请自己释放。</div><div class="line"> * @param viewController 当前界面对象。</div><div class="line"> * @param delegate  WXApiDelegate对象，用来接收微信触发的消息。</div><div class="line"> * @return 成功返回YES，失败返回NO。</div><div class="line"> */</div><div class="line">+(BOOL) sendAuthReq:(SendAuthReq*)req viewController:(UIViewController*)viewController delegate:(id&lt;WXApiDelegate&gt;)delegate;</div></pre></td></tr></table></figure></p>
+<p>下面就是重点了，在看文档的时候，微信给了我一个很无语的介绍:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、目前移动应用上微信登录只提供原生的登录方式，需要用户安装微信客户端才能配合使用。</span><br><span class="line">2、对于Android应用，建议总是显示微信登录按钮，当用户手机没有安装微信客户端时，请引导用户下载安装微信客户端。</span><br><span class="line">3、对于iOS应用，考虑到iOS应用商店审核指南中的相关规定，建议开发者接入微信登录时，先检测用户手机是否已安装微信客户端（使用sdk中isWXAppInstalled函数 ），</span><br><span class="line">　　对未安装的用户隐藏微信登录按钮，只提供其他登录方式（比如手机号注册登录、游客登录等）</span><br></pre></td></tr></table></figure></p>
+<p>就是上面这个介绍让我懵比。后来去网上搜了一下，然后再看看WXApi.h这个头文件，发现里面有一个方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/*! @brief 发送Auth请求到微信，支持用户没安装微信，等待微信返回onResp</span><br><span class="line"> *</span><br><span class="line"> * 函数调用后，会切换到微信的界面。第三方应用程序等待微信返回onResp。微信在异步处理完成后一定会调用onResp。支持SendAuthReq类型。</span><br><span class="line"> * @param req 具体的发送请求，在调用函数后，请自己释放。</span><br><span class="line"> * @param viewController 当前界面对象。</span><br><span class="line"> * @param delegate  WXApiDelegate对象，用来接收微信触发的消息。</span><br><span class="line"> * @return 成功返回YES，失败返回NO。</span><br><span class="line"> */</span><br><span class="line">+(BOOL) sendAuthReq:(SendAuthReq*)req viewController:(UIViewController*)viewController delegate:(id&lt;WXApiDelegate&gt;)delegate;</span><br></pre></td></tr></table></figure></p>
 <p>　这就是福音。</p>
-<p>不说话，直接调用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">SendAuthReq* req =[[SendAuthReq alloc ] init];</div><div class="line">req.scope = @&quot;snsapi_userinfo&quot;;</div><div class="line">req.state = start;</div><div class="line"></div><div class="line">WXApi sendAuthReq:req viewController:self delegate:[WXApiManager sharedManager]];</div></pre></td></tr></table></figure></p>
+<p>不说话，直接调用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SendAuthReq* req =[[SendAuthReq alloc ] init];</span><br><span class="line">req.scope = @&quot;snsapi_userinfo&quot;;</span><br><span class="line">req.state = start;</span><br><span class="line"></span><br><span class="line">WXApi sendAuthReq:req viewController:self delegate:[WXApiManager sharedManager]];</span><br></pre></td></tr></table></figure></p>
 <p>在这里，需要有一点注意。<font color="#ff0000">“req.scope = @”snsapi_userinfo”</font>,这个是固定的。</p>
-<p>我的这份代码中，微信登录有客户端的时候写的是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">SendAuthReq* req =[[SendAuthReq alloc ] init];</div><div class="line">req.scope = @&quot;snsapi_userinfo, snsapi_base&quot;;</div><div class="line">req.state = start;</div><div class="line">[WXApi sendReq:req];</div></pre></td></tr></table></figure></p>
+<p>我的这份代码中，微信登录有客户端的时候写的是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SendAuthReq* req =[[SendAuthReq alloc ] init];</span><br><span class="line">req.scope = @&quot;snsapi_userinfo, snsapi_base&quot;;</span><br><span class="line">req.state = start;</span><br><span class="line">[WXApi sendReq:req];</span><br></pre></td></tr></table></figure></p>
 <p>我就偷个懒吧下面修改一下替换到无客户端代码，结果很长时间都是调不出来，就是没反应。后来逐一检查，才发现这个问题。</p>
 <p>注意，无客户端情况下登录，<font color="#ff0000">“req.scope = @”snsapi_userinfo”</font>，这样写就够了</p>
 <p>这是其一。</p>
@@ -496,6 +496,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">js, 原生, 交互, js与原生交互, wkWebView交互</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据模型, set/get</a>
               </li>
              
@@ -512,6 +516,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">xcode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">animation</a>
               </li>
              
@@ -521,10 +529,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">wechat</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">xcode</a>
               </li>
             
             <div class="clearfix"></div>
